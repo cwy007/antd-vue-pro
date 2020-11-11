@@ -13,19 +13,19 @@ const routes = [
     children: [
       {
         path: "/user",
-        redirect: "/user/login"
+        redirect: "/user/login",
       },
       {
         path: "/user/login",
         name: "login",
-        component: () => import(/* webpackChunkName: "user" */ "../views/User/Login.vue")
+        component: () => import(/* webpackChunkName: "user" */ "../views/User/Login.vue"),
       },
       {
         path: "/user/register",
         name: "register",
-        component: () => import(/* webpackChunkName: "user" */ "../views/User/Register.vue")
-      }
-    ]
+        component: () => import(/* webpackChunkName: "user" */ "../views/User/Register.vue"),
+      },
+    ],
   },
   {
     path: "/",
@@ -34,7 +34,7 @@ const routes = [
       // dashboard
       {
         path: "/",
-        redirect: "/dashboard/analysis"
+        redirect: "/dashboard/analysis",
       },
       {
         path: "/dashboard",
@@ -44,9 +44,10 @@ const routes = [
           {
             path: "/dashboard/analysis",
             name: "analysis",
-            component: () => import(/* webpackChunkName: "dashboard" */ "../views/Dashboard/Analysis")
-          }
-        ]
+            component: () =>
+              import(/* webpackChunkName: "dashboard" */ "../views/Dashboard/Analysis"),
+          },
+        ],
       },
       // form
       {
@@ -57,7 +58,7 @@ const routes = [
           {
             path: "form/basic-form",
             name: "basicform",
-            component: () => import(/* webpackChunkName: "form" */ "../views/Forms/BasicForm")
+            component: () => import(/* webpackChunkName: "form" */ "../views/Forms/BasicForm"),
           },
           {
             path: "/form/step-form",
@@ -66,44 +67,49 @@ const routes = [
             children: [
               {
                 path: "/form/step-form",
-                redirect: "/form/step-form/info"
+                redirect: "/form/step-form/info",
               },
               {
                 path: "/form/step-form/info",
                 name: "info",
-                component: () => import(/* webpackChunkName: "form" */ "../views/Forms/StepForm/Step1")
+                component: () =>
+                  import(/* webpackChunkName: "form" */ "../views/Forms/StepForm/Step1"),
               },
               {
                 path: "/form/step-form/confirm",
                 name: "confirm",
-                component: () => import(/* webpackChunkName: "form" */ "../views/Forms/StepForm/Step2")
+                component: () =>
+                  import(/* webpackChunkName: "form" */ "../views/Forms/StepForm/Step2"),
               },
               {
                 path: "/form/step-form/result",
                 name: "result",
-                component: () => import(/* webpackChunkName: "form" */ "../views/Forms/StepForm/Step3")
-              }
-            ]
-          }
-        ]
-      }
-    ]
+                component: () =>
+                  import(/* webpackChunkName: "form" */ "../views/Forms/StepForm/Step3"),
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     path: "*",
     name: "404",
-    component: NotFound
-  }
+    component: NotFound,
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 router.beforeEach((to, from, next) => {
-  NProgress.start();
+  if (to.path !== from.path) {
+    NProgress.start();
+  }
   next();
 });
 
