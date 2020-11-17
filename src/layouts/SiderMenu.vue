@@ -18,6 +18,7 @@
 
 <script>
 import SubMenu from "./SubMenu";
+import { check } from "../utils/auth";
 export default {
   props: {
     theme: {
@@ -51,7 +52,12 @@ export default {
     },
     getMenuData(routes = [], parentKeys = [], selectedKey) {
       const menuData = [];
-      routes.forEach(item => {
+      for (let item of routes) {
+        // 当用户没有权限时，不显示对应的菜单导航链接
+        if (item.meta && item.meta.authority && !check(item.meta.authority)) {
+          break;
+        }
+
         if (item.name && !item.hideInMenu) {
           this.openKeysMap[item.path] = parentKeys;
           this.selectedKeysMap[item.path] = [selectedKey || item.path];
@@ -70,7 +76,7 @@ export default {
         } else if (!item.hideInMenu && !item.hideChildrenInMenu && item.children) {
           menuData.push(...this.getMenuData(item.children, [...parentKeys, item.path]));
         }
-      });
+      }
       return menuData;
     },
   },
