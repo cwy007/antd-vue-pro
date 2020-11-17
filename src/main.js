@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import { Button, Layout, Icon, Drawer, Radio, Menu } from "ant-design-vue";
 import Authorized from "./components/Authorized.vue";
+import Auth from "./directives/auth";
 
 Vue.config.productionTip = false;
 
@@ -17,6 +18,9 @@ Vue.use(Menu);
 
 // 全局注册权限验证组件
 Vue.component("Authorized", Authorized);
+
+// 指令形式的权限验证
+Vue.use(Auth);
 
 new Vue({
   router,
