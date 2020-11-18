@@ -13,7 +13,9 @@ export default {
   },
   mounted() {
     this.getChartData();
-    this.interval = setInterval(this.getChartData(), 3000);
+    this.interval = setInterval(() => {
+      this.getChartData();
+    }, 3000);
   },
   methods: {
     getChartData() {
