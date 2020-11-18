@@ -1,5 +1,5 @@
 <template>
-  <div>第一步</div>
+  <div>第二步</div>
 </template>
 
 <script>
