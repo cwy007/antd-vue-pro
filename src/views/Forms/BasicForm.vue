@@ -1,5 +1,5 @@
 <template>
-  <a-form :layout="formLayout">
+  <a-form :layout="formLayout" :form="form">
     <a-form-item
       label="Form Layout"
       :label-col="formItemLayout.labelCol"
@@ -21,17 +21,21 @@
       label="Field A"
       :label-col="formItemLayout.labelCol"
       :wrapper-col="formItemLayout.wrapperCol"
-      :validateStatus="fieldAStatus"
-      :help="fieldAHelp"
     >
-      <a-input v-model="fieldA" placeholder="input placeholder" />
+      <a-input
+        v-decorator="[
+          'fieldA',
+          { initialValue: fieldA, rules: [{ required: true, min: 6, message: '必须大于5个字符' }] },
+        ]"
+        placeholder="input placeholder"
+      />
     </a-form-item>
     <a-form-item
       label="Field B"
       :label-col="formItemLayout.labelCol"
       :wrapper-col="formItemLayout.wrapperCol"
     >
-      <a-input v-model="fieldB" placeholder="input placeholder" />
+      <a-input v-decorator="['fieldB']" placeholder="input placeholder" />
     </a-form-item>
     <a-form-item :wrapper-col="buttonItemLayout.wrapperCol">
       <a-button type="primary" @click="handleSubmit">
@@ -44,24 +48,18 @@
 <script>
 export default {
   data() {
+    this.form = this.$form.createForm(this);
     return {
       formLayout: "horizontal",
-      fieldA: "",
+      fieldA: "hello", // 初始数据
       fieldB: "",
-      fieldAStatus: "",
-      fieldAHelp: "必须大于5个字符",
     };
   },
-  watch: {
-    fieldA(val) {
-      if (val.length <= 5) {
-        this.fieldAStatus = "error";
-        this.fieldAHelp = "必须大于5个字符";
-      } else {
-        this.fieldAStatus = "";
-        this.fieldAHelp = "";
-      }
-    },
+  mounted() {
+    setTimeout(() => {
+      // 动态赋值
+      this.form.setFieldsValue({ fieldA: "hello world" });
+    }, 3000);
   },
   computed: {
     formItemLayout() {
@@ -87,15 +85,13 @@ export default {
       this.formLayout = e.target.value;
     },
     handleSubmit() {
-      if (this.fieldA.length <= 5) {
-        this.fieldAStatus = "error";
-        this.fieldAHelp = "必须大于5个字符";
-      } else {
-        console.log({
-          fieldA: this.fieldA,
-          fieldB: this.fieldB,
-        });
-      }
+      // 自动校验
+      this.form.validateFields((err, values) => {
+        if (!err) {
+          console.log(values);
+          Object.assign(this, values);
+        }
+      });
     },
   },
 };
