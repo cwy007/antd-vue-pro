@@ -25,6 +25,11 @@ Vue.component("Authorized", Authorized);
 // 指令形式的权限验证
 Vue.use(Auth);
 
+const IconFont = Icon.createFromIconfontCN({
+  scriptUrl: "//at.alicdn.com/t/font_2219984_e18lb14wvi8.js",
+});
+Vue.component("IconFont", IconFont);
+
 new Vue({
   router,
   store,
