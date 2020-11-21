@@ -1,6 +1,9 @@
+const currentAuth = ["admin"];
+export { currentAuth };
+
 export function getCurrentAuthority() {
   //   return ["user"];
-  return ["admin"];
+  return currentAuth;
 }
 
 export function check(authority) {
