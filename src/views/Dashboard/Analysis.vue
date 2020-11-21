@@ -4,16 +4,21 @@
     <a-date-picker></a-date-picker>
 
     <Chart :option="chartOption" style="height: 400px" />
+
+    <pre v-highlightjs="chartCode"><code class="html"></code></pre>
   </div>
 </template>
 
 <script>
 import request from "../../utils/request";
 import Chart from "../../components/Chart";
+import chartCode from "!!raw-loader!../../components/Chart";
+
 export default {
   data() {
     return {
       chartOption: {},
+      chartCode,
     };
   },
   mounted() {

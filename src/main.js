@@ -6,6 +6,7 @@ import store from "./store";
 import enUS from "./locale/enUS";
 import zhCN from "./locale/zhCN";
 import queryString from "query-string";
+import VueHighlightJS from "vue-highlightjs";
 
 import {
   Button,
@@ -23,6 +24,7 @@ import {
 } from "ant-design-vue";
 import Authorized from "./components/Authorized.vue";
 import Auth from "./directives/auth";
+import "highlight.js/styles/github.css";
 
 Vue.config.productionTip = false;
 
@@ -40,6 +42,7 @@ Vue.use(LocaleProvider);
 Vue.use(Dropdown);
 Vue.use(DatePicker);
 Vue.use(VueI18n);
+Vue.use(VueHighlightJS);
 
 // 全局注册权限验证组件
 Vue.component("Authorized", Authorized);
