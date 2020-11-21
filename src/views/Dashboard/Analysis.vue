@@ -1,5 +1,9 @@
 <template>
-  <div><Chart :option="chartOption" style="height: 400px" /></div>
+  <div>
+    {{ $t("message")["app.dashboard.analysis.timeLabel"] }}
+    <a-date-picker></a-date-picker>
+    <Chart :option="chartOption" style="height: 400px" />
+  </div>
 </template>
 
 <script>
